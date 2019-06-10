@@ -2,14 +2,20 @@ package com.scala.oop.filesystem
 
 import java.util.Scanner
 
+import com.scala.oop.commands.Command
+import com.scala.oop.files.Directory
+
 
 object Filesystem extends  App{
 
-  val sanner = new Scanner(System.in)
+  val root = Directory.ROOT
+  var state = State(root,root)
+  val scanner = new Scanner(System.in)
 
   while (true){
-    print("$")
-    println(sanner.next)
+state.show
+    val input= scanner.nextLine()
+    state= Command.from(input).apply(state)
   }
 
 }

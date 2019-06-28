@@ -1,6 +1,7 @@
 package com.scala.oop.commands
 
 import com.scala.oop.filesystem.State
+import commands.Ls
 
 trait Command  {
 
@@ -9,6 +10,7 @@ trait Command  {
 
 object Command {
   val MKDIR= "mkdir"
+  val LS = "ls"
 
   def emptyCommand :Command= new Command {
     override def apply(state: State): State = state
@@ -27,6 +29,11 @@ object Command {
         if ( tokens.length<2)incompleteCommand(MKDIR)
         else new Mkdir(tokens(1))
       }
+      else if (LS.equals(tokens(0))){
+      new Ls
+    }
+
+
     else  new UnkownCommand
 
 

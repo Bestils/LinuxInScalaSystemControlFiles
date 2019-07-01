@@ -1,4 +1,6 @@
 package com.scala.oop.files
+import files.File
+import filesystem.FileSystemException
 
 class Directory(override val parentPath: String, override val name: String, val contents: List[DirEntry])
   extends DirEntry(parentPath , name) {
@@ -29,10 +31,18 @@ class Directory(override val parentPath: String, override val name: String, val 
     else findEntry(path.head).asDirectory.findDescendant(path.tail)
 
 
+
+  def isRoot : Boolean = parentPath.isEmpty
+
   def asDirectory : Directory = this
+
+  override def asFile: File =  throw new FileSystemException("A directory cannot be converted to a file!")
 
   override def getType: String =  "Directory "
 
+  override def isDirectory: Boolean = true
+
+  override def isFile: Boolean = false
 }
 object Directory{
   val SEPARATOR = "/"
